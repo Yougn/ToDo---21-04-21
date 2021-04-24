@@ -1,5 +1,6 @@
 import React from "react";
 import ToDo from "./ToDo";
+import style from "./ToDoList.module.css";
 
 
 const ToDoList = (props) => {
@@ -7,7 +8,7 @@ const ToDoList = (props) => {
 
     return (
         <div>
-            <ul className="todo-list">
+            <ul className={style.todoList}>
                 {filteredTodos.map((todo) => (
                     <ToDo todo={todo}
                     todos={todos} 

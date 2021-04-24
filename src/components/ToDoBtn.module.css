@@ -1,0 +1,48 @@
+.filterontainer {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0.8rem 0.5rem;
+    position: relative;
+    border-top: 1px solid #e6e6e6;
+}
+
+.filterTodo {
+    padding: 0 10px;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    color: #737373;
+    background-color: white;
+    outline: none;
+    border: none;
+}
+
+.filterTodo:nth-child(1) {
+    border: 1px solid #737373;
+    border-radius: 3px;
+}
+
+.text {
+    margin-right: 55px;
+    font-style: italic;
+    font-weight: 400;
+    color: #737373;
+}
+
+.completed {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    color: #737373;
+    background-color: #ffffff;
+    background-position: center;
+    background-repeat: no-repeat;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+}

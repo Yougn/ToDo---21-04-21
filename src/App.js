@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Form from "./components/Form"
-import ToDoList from "./components/ToDoList"
-import ToDoBtn from "./components/ToDoBtn"
+import Form from "./components/Form";
 
 
 const LOCAL_STORAGE_KEY = "react-todo-list-todos";
@@ -54,12 +52,11 @@ function App() {
           inputText={inputText}
           setInputText={setInputText}
           setStatus={setStatus}
+          filteredTodos={filteredTodos}
         />
-        <ToDoList todos={todos} setTodos={setTodos} filteredTodos={filteredTodos} />
-        <ToDoBtn todos={todos} setTodos={setTodos} setStatus={setStatus} />
       </div>
-    </div >
-  );
-}
+    </div>
+  )
+};
 
 export default App;

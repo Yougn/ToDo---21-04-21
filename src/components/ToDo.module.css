@@ -1,0 +1,93 @@
+.todo {
+    position: relative;
+}
+
+.hidden {
+    position: absolute;
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    border: 0;
+    clip: rect(0,0,0,0);
+    overflow: hidden;
+}
+
+.chk + .label {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e6e6e6;
+    border-radius: 100%;
+    top: 25px;
+    left: 20px;
+    transform: translate(-50%, -50%);
+    transition: all ease-out 200ms;
+    text-indent: 90px;
+    font: normal normal 30px/60px "Helvetica";
+    white-space: nowrap;
+    cursor: pointer;
+    color: #e6e6e6;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.chk + .label:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 6px;
+    border-bottom: 5px solid #22b573;
+    border-left: 5px solid #22b573;
+    top: 25%;
+    left: 50%;
+    transform-origin: bottom left;
+    transform: rotate(-45deg);
+    opacity: 0;
+    transition: all ease-out 200ms;
+}
+  
+.chk:checked + .label {
+    border: 2px solid #22b573;
+}
+
+.chk:checked + .label:after {
+    opacity: 1;
+    width: 13px;
+}
+
+.formControl {
+    width: 100%;
+    padding: 0.5rem 2.5rem;
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 500;
+    color: #737373;
+    background-color: white;
+    outline: none;
+    border: none;
+    border-top: 1px solid #e6e6e6;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.trashBtn {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 15px;
+    right: 10px;
+    background-image: url("../img/toggle-cross.svg");
+    background-color: #ffffff;
+    background-position: center;
+    background-repeat: no-repeat;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+}
