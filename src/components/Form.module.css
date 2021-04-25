@@ -17,7 +17,6 @@
 }
 
 .textInput::placeholder {
-  font-weight: 400;
   color: #e6e6e6;
 }
 
@@ -54,3 +53,19 @@
   cursor: pointer;
   z-index: 2;
 }
+
+@media (min-width: 320px) and (max-width: 500px) {
+  .textInput {
+    font-size: 1rem;
+  }
+
+  .edit {
+    top: 10px;
+  }
+
+  .done {
+    top: 10px;
+  }
+}
+
+

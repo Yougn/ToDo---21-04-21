@@ -66,6 +66,7 @@
     font-weight: 500;
     color: #737373;
     background-color: white;
+    cursor: pointer;
     outline: none;
     border: none;
     border-top: 1px solid #e6e6e6;
@@ -90,4 +91,18 @@
     border: none;
     cursor: pointer;
     z-index: 2;
+}
+
+@media (min-width: 320px) and (max-width: 500px) {
+    .formControl {
+        font-size: 1rem;
+    }
+
+    .chk + .label {
+        top: 17px;
+    }
+    
+    .trashBtn {
+      top: 8px;
+    }
 }

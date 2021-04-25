@@ -14,6 +14,7 @@
     font-weight: 300;
     color: #737373;
     background-color: white;
+    cursor: pointer;
     outline: none;
     border: none;
 }
@@ -45,4 +46,62 @@
     border: none;
     cursor: pointer;
     z-index: 2;
+}
+
+@media (min-width: 320px) and (max-width: 500px) {
+    .formControl {
+        font-size: 1rem;
+    }
+
+    .filterTodo {
+        padding: 0 22px;
+    }
+
+    .chk + .label {
+        top: 17px;
+    }
+
+    .text {
+        margin-right: 10px;
+    }
+    
+    .trashBtn {
+       top: 8px;
+    }
+
+    .completed {
+        top: 40px;
+        right: 10%;
+    }
+}
+
+@media (min-width: 395px) and (max-width: 500px) {
+    .filterTodo {
+        padding: 0 3px;
+    }
+
+    .text {
+        margin-right: 10px;
+    }
+
+    .completed {
+        top: 16px;
+        right: 1%;
+    }
+}
+
+@media (min-width: 420px) and (max-width: 500px) {
+    .text {
+        margin-right: 30px;
+    }
+
+    .completed {
+        right: 3%;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 500px) {
+    .text {
+        margin-right: 45px;
+    }
 }

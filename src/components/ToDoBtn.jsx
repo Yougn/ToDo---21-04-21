@@ -8,12 +8,12 @@ const ToDoBtn = (props) => {
 
     const statusHandler = (evt) => {
         evt.preventDefault();
-        setStatus(evt.target.value)
+        setStatus(evt.target.value);
     };
 
     const clearHandler = (evt) => {
         evt.preventDefault();
-        setTodos(todos.filter(todo => !todo.completed))
+        setTodos(todos.filter(todo => !todo.completed));
     };
 
     const activeTodos = todos.filter(todo => !todo.completed);

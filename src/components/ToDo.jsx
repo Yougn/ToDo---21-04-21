@@ -5,12 +5,11 @@ import style from "./ToDo.module.css"
 const ToDo = (props) => {
 
     const { text, todo, todos, setTodos } = props;
-
-    const [show, setShow] = useState(null);
+    const [show, setShow] = useState(false);
 
     const deleteHandler = (evt) => {
         evt.preventDefault();
-        setTodos(todos.filter(el => el.id !== todo.id))
+        setTodos(todos.filter(el => el.id !== todo.id));
     };
 
     const completeHandler = () => {
@@ -37,18 +36,19 @@ const ToDo = (props) => {
     };
 
     const mouseEnterHandler = () => {
-        setShow(todos.filter(el => el.id === todo.id))
+        const activeId = todo.id;
+        const activeTodo = todos.find((el) => el.id === activeId);
+        setShow(activeTodo);
     };
 
-    console.log(show);
     return (
-        <div className={style.todo}>
+        <div className={style.todo} onMouseMove={mouseEnterHandler} onMouseLeave={() => (setShow(false))}>
             <input className={style.chk + " " + style.hidden} type="checkbox" id="chk" checked={todo.completed} readOnly />
             <label onClick={completeHandler} className={style.label} htmlFor="chk" />
-            <input onChange={editHandler} onMouseEnter={mouseEnterHandler} className={style.formControl +
-                `${todo.completed ? " " + style.completed : " "}`} value={text} type="text">
+            <input onChange={editHandler} className={style.formControl
+                + `${todo.completed ? " " + style.completed : " "}`} value={text} type="text">
             </input>
-            { show ? <button onClick={deleteHandler} className={style.trashBtn} /> : " "}
+            {show && <button onClick={deleteHandler} className={style.trashBtn} />}
         </div>
     )
 };

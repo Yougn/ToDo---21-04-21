@@ -5,8 +5,9 @@
 }
 
 body {
-  font-style: italic;
+  min-width: 320px;
   min-height: 100vh;
+  font-style: italic;
   background-color: white;
 }
 
@@ -21,5 +22,12 @@ header h1 {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  padding: 10px;
   border-radius: 3px;
+}
+
+@media (min-width: 320px) and (max-width: 600px) {
+  header h1 {
+    font-size: 85px;
+  }
 }
