@@ -4,18 +4,21 @@ import style from "./ToDoList.module.css";
 
 
 const ToDoList = (props) => {
-    
-    const { todos, setTodos, filteredTodos } = props;
+
+    const { todos, setTodos, filteredTodos,
+        showCompletedTask, showDeletedTask } = props;
 
     return (
         <div>
             <ul className={style.todoList}>
                 {filteredTodos.map((todo) => (
                     <ToDo todo={todo}
-                    todos={todos} 
-                    setTodos={setTodos} 
-                    text={todo.text} 
-                    id={todo.id} key={todo.id} />
+                        todos={todos}
+                        setTodos={setTodos}
+                        text={todo.text}
+                        showCompletedTask={showCompletedTask}
+                        showDeletedTask={showDeletedTask}
+                        id={todo.id} key={todo.id} />
                 ))}
             </ul>
         </div>

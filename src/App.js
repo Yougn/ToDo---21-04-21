@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Form from "./components/Form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const LOCAL_STORAGE_KEY = "react-todo-list-todos";
@@ -41,6 +43,15 @@ function App() {
     filterHandler();
   }, [todos, status]);
 
+  const showAddedTask = () => toast("The task is added!");
+  const showCompletedTask = () => toast("The task is completed!");
+  const showDeletedTask = () => toast("The task is deleted!");
+
+  const showAllTasks = () => toast("All tasks!");
+  const showCompletedTasks = () => toast("Completed tasks!");
+  const showActiveTasks = () => toast("Active tasks!");
+  const showCleanList = () => toast("The list is clean!");
+
   return (
     <div className="App">
       <header>
@@ -53,8 +64,16 @@ function App() {
           setInputText={setInputText}
           setStatus={setStatus}
           filteredTodos={filteredTodos}
+          showAddedTask={showAddedTask}
+          showCompletedTask={showCompletedTask}
+          showDeletedTask={showDeletedTask}
+          showAllTasks={showAllTasks}
+          showCompletedTasks={showCompletedTasks}
+          showActiveTasks={showActiveTasks}
+          showCleanList={showCleanList}
         />
       </div>
+      <ToastContainer />
     </div>
   )
 };

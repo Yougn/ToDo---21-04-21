@@ -6,7 +6,9 @@ import style from "./Form.module.css";
 
 const Form = (props) => {
 
-    const { inputText, setInputText, todos, setTodos, filteredTodos, setStatus } = props;
+    const { inputText, setInputText, todos, setTodos, filteredTodos,
+        setStatus, showAllTasks, showCompletedTasks, showActiveTasks, showCleanList,
+        showCompletedTask, showDeletedTask, showAddedTask } = props;
     const [checkboxStatus, setCheckboxStatus] = useState(true);
 
     const inputTextHandler = (evt) => {
@@ -23,15 +25,19 @@ const Form = (props) => {
                 id: Math.random() * 1000
             }]);
             setInputText("");
+            showAddedTask();
         };
     };
 
-    const activeTodos = todos.filter(todo => todo.completed);
+    const activeTodos = todos.every(todo => todo.completed);
+    const deactiveTodos = todos.every(todo => todo.completed);
 
     const checkboxHandler = (evt) => {
         evt.preventDefault();
 
-        if ((checkboxStatus && activeTodos) || activeTodos || checkboxStatus) {
+        showAllTasks();
+
+        if (checkboxStatus || activeTodos) {
             setTodos(todos.map((el) => {
                 if (!el.completed) {
                     return {
@@ -42,7 +48,7 @@ const Form = (props) => {
             }));
         };
 
-        if ((!checkboxStatus && !activeTodos) || !checkboxStatus) {
+        if (!checkboxStatus && deactiveTodos) {
             setTodos(todos.map((el) => {
                 if (el.completed) {
                     return {
@@ -60,15 +66,15 @@ const Form = (props) => {
         };
     };
 
-    const deactiveTodos = todos.filter(todo => !todo.completed);
-
     return (
         <form className={style.form} >
-            {todos.length > 0 ? <button onClick={checkboxHandler} className={deactiveTodos.length > 0 ? style.edit : style.done} type="button" /> : " "}
+            {todos.length > 0 ? <button onClick={checkboxHandler} className={!deactiveTodos ? style.edit : style.done} type="button" /> : " "}
             <input onChange={inputTextHandler} onKeyDown={pressKeyDownTodoHandler} value={inputText}
                 className={style.textInput} type="text" autoFocus={true} placeholder="What needs to be done?" />
-            <ToDoList todos={todos} setTodos={setTodos} filteredTodos={filteredTodos} />
-            <ToDoBtn todos={todos} setTodos={setTodos} setStatus={setStatus} />
+            <ToDoList todos={todos} setTodos={setTodos} filteredTodos={filteredTodos}
+                showDeletedTask={showDeletedTask} showCompletedTask={showCompletedTask} />
+            <ToDoBtn todos={todos} setTodos={setTodos} setStatus={setStatus} showCleanList={showCleanList}
+                showAllTasks={showAllTasks} showCompletedTasks={showCompletedTasks} showActiveTasks={showActiveTasks} />
         </form>
     )
 };

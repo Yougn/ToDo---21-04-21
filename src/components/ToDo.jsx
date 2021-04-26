@@ -4,15 +4,17 @@ import style from "./ToDo.module.css"
 
 const ToDo = (props) => {
 
-    const { text, todo, todos, setTodos } = props;
+    const { text, todo, todos, setTodos, showCompletedTask, showDeletedTask } = props;
     const [show, setShow] = useState(false);
 
     const deleteHandler = (evt) => {
         evt.preventDefault();
+        showDeletedTask();
         setTodos(todos.filter(el => el.id !== todo.id));
     };
 
     const completeHandler = () => {
+        showCompletedTask();
         setTodos(todos.map((el) => {
             if (el.id === todo.id) {
                 return {
