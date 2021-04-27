@@ -19,9 +19,9 @@
     border: none;
 }
 
-.filterTodo:nth-child(1) {
+.filterTodoActive  {
     border: 1px solid #737373;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .text {

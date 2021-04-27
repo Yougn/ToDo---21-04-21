@@ -18,7 +18,7 @@ function App() {
     const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (storageTodos) {
       setTodos(storageTodos);
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -62,6 +62,7 @@ function App() {
           setTodos={setTodos}
           inputText={inputText}
           setInputText={setInputText}
+          status={status}
           setStatus={setStatus}
           filteredTodos={filteredTodos}
           showAddedTask={showAddedTask}

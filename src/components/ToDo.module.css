@@ -1,26 +1,25 @@
 .todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
+    border-top: 1px solid #e6e6e6;
 }
 
-.hidden {
-    position: absolute;
-    margin: -1px;
-    padding: 0;
-    width: 1px;
-    height: 1px;
-    border: 0;
-    clip: rect(0,0,0,0);
-    overflow: hidden;
+.chk {
+    position: relative;
+    margin: 0 15px;
 }
 
-.chk + .label {
+.chk:before {
+    content: "";
     position: absolute;
     width: 20px;
     height: 20px;
     border: 2px solid #e6e6e6;
     border-radius: 100%;
-    top: 25px;
-    left: 20px;
+    top: 7px;
+    left: 7px;
     transform: translate(-50%, -50%);
     transition: all ease-out 200ms;
     text-indent: 90px;
@@ -28,13 +27,14 @@
     white-space: nowrap;
     cursor: pointer;
     color: #e6e6e6;
+    background-color: white;
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
 }
 
-.chk + .label:after {
+.chk:after {
     content: "";
     position: absolute;
     width: 0;
@@ -49,18 +49,18 @@
     transition: all ease-out 200ms;
 }
   
-.chk:checked + .label {
+.chk:checked:before {
     border: 2px solid #22b573;
 }
 
-.chk:checked + .label:after {
+.chk:checked:after {
     opacity: 1;
     width: 13px;
 }
 
 .formControl {
     width: 100%;
-    padding: 0.5rem 2.5rem;
+    padding: 0.5rem 0;
     font-size: 2rem;
     font-style: italic;
     font-weight: 500;
@@ -69,7 +69,6 @@
     cursor: pointer;
     outline: none;
     border: none;
-    border-top: 1px solid #e6e6e6;
 }
 
 .completed {

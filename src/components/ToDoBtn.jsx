@@ -10,8 +10,8 @@ const Tasks = {
 
 const ToDoBtn = (props) => {
 
-    const { todos, setTodos, setStatus, showCleanList,
-        showAllTasks, showCompletedTasks, showActiveTasks } = props;
+    const { todos, setTodos, status, setStatus, showCleanList,
+        showAllTasks, showCompletedTasks, showActiveTasks} = props;
 
     const statusHandler = (evt) => {
         evt.preventDefault();
@@ -20,9 +20,9 @@ const ToDoBtn = (props) => {
         if (currentValue === Tasks.ALL) {
             showAllTasks();
         } else if (currentValue === Tasks.COMPLETED) {
-            showCompletedTasks()
+            showCompletedTasks();
         } else if (currentValue === Tasks.ACTIVE) {
-            showActiveTasks()
+            showActiveTasks();
         };
 
         setStatus(currentValue);
@@ -44,9 +44,15 @@ const ToDoBtn = (props) => {
                     {activeTodos.length} items left
                 </div>
                 <div className={style.filterBox}>
-                    <button onClick={statusHandler} value="all" className={style.filterTodo}>All</button>
-                    <button onClick={statusHandler} value="completed" className={style.filterTodo}>Completed</button>
-                    <button onClick={statusHandler} value="active" className={style.filterTodo}>Active</button>
+                    <button onClick={statusHandler} value="all"
+                        className={status === Tasks.ALL ? style.filterTodo + " " + style.filterTodoActive :
+                            style.filterTodo}>All</button>
+                    <button onClick={statusHandler} value="completed"
+                        className={status === Tasks.COMPLETED ? style.filterTodo + " " + style.filterTodoActive :
+                            style.filterTodo}>Completed</button>
+                    <button onClick={statusHandler}
+                        className={status === Tasks.ACTIVE ? style.filterTodo + " " + style.filterTodoActive :
+                            style.filterTodo} value="active">Active</button>
                 </div>
                 {completedTodos.length > 0 ?
                     <div>

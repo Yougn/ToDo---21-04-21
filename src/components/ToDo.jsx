@@ -1,24 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./ToDo.module.css"
 
 
 const ToDo = (props) => {
 
-    const { text, todo, todos, setTodos, showCompletedTask, showDeletedTask } = props;
+    const { text, todo, todos, setTodos, showCompletedTask, showAddedTask, showDeletedTask } = props;
     const [show, setShow] = useState(false);
+    const [isReadonly, setReadonly] = useState(true);
 
-    const deleteHandler = (evt) => {
-        evt.preventDefault();
-        showDeletedTask();
-        setTodos(todos.filter(el => el.id !== todo.id));
+    useEffect(() => {
+        document.addEventListener("click", readOnlyHandler);
+        return () => {
+            document.removeEventListener("click", readOnlyHandler);
+        };
+    }, []);
+
+    const readOnlyHandler = (evt) => {
+        const target = evt.target;
+        if (!target.closest(".todo")) {
+            setReadonly(true);
+        };
+    };
+
+    const mouseEnterHandler = () => {
+        const activeId = todo.id;
+        const activeTodo = todos.find((el) => el.id === activeId);
+        setShow(activeTodo);
     };
 
     const completeHandler = () => {
-        showCompletedTask();
         setTodos(todos.map((el) => {
             if (el.id === todo.id) {
-                return {
-                    ...el, completed: !el.completed
+                if (el.completed) {
+                    showAddedTask();
+                    return {
+                        ...el, completed: false
+                    }
+                } else {
+                    showCompletedTask();
+                    return {
+                        ...el, completed: true
+                    }
                 }
             }
             return el;
@@ -37,18 +59,18 @@ const ToDo = (props) => {
         }));
     };
 
-    const mouseEnterHandler = () => {
-        const activeId = todo.id;
-        const activeTodo = todos.find((el) => el.id === activeId);
-        setShow(activeTodo);
+    const deleteHandler = (evt) => {
+        evt.preventDefault();
+        setTodos(todos.filter(el => el.id !== todo.id));
+        showDeletedTask();
     };
 
     return (
-        <div className={style.todo} onMouseMove={mouseEnterHandler} onMouseLeave={() => (setShow(false))}>
-            <input className={style.chk + " " + style.hidden} type="checkbox" id="chk" checked={todo.completed} readOnly />
-            <label onClick={completeHandler} className={style.label} htmlFor="chk" />
-            <input onChange={editHandler} className={style.formControl
-                + `${todo.completed ? " " + style.completed : " "}`} value={text} type="text">
+        <div onMouseMove={mouseEnterHandler} onMouseLeave={() => (setShow(false))} className={style.todo} >
+            <input onClick={completeHandler} className={style.chk} type="checkbox" id="chk" checked={todo.completed} readOnly />
+            <input onDoubleClick={() => setReadonly(false)} onChange={editHandler} readOnly={isReadonly}
+                className={style.formControl
+                    + `${todo.completed ? " " + style.completed : " "}`} value={text} type="text">
             </input>
             {show && <button onClick={deleteHandler} className={style.trashBtn} />}
         </div>
