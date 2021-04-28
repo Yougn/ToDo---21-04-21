@@ -17,8 +17,8 @@ const Form = (props) => {
     };
 
     const pressKeyDownTodoHandler = (evt) => {
-        if (inputText === "") {
-            return
+        if (!inputText.trim() || 0 === inputText.length) {
+            return;
         };
 
         if (evt.keyCode === 13) {
