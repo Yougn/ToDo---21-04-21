@@ -6,8 +6,8 @@ const PORT = process.env.PORT || 5000
 
 // Middleware для того, что бы express понимал, что при PUT и POST запросах
 // данные будут прииходить в формате json
-
 app.use(express.json({ extended: true }));
+
 app.use('/api/todo', require('./routes/todo.route'));
 
 async function start() {

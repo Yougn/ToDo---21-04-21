@@ -1,0 +1,1 @@
+### `npm run dev` - запускаем client и server одновременно.

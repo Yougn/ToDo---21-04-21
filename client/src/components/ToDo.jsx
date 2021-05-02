@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import style from "./ToDo.module.css"
+import React, { useState, useEffect, useCallback } from "react";
+import style from "./ToDo.module.css";
+import axios from "axios";
 
 
 const ToDo = (props) => {
 
-    const { text, todo, todos, setTodos, showDeletedTask, 
-        removeTodo, completeTodo, editTodo } = props;
+    const { text, todo, todos, setTodos, showDeletedTask, showAddedTask, showCompletedTask } = props;
     const [show, setShow] = useState(false);
     const [isReadonly, setReadonly] = useState(true);
 
@@ -15,6 +15,63 @@ const ToDo = (props) => {
             document.removeEventListener("click", readOnlyHandler);
         };
     }, []);
+
+    const removeTodo = useCallback(async (id) => {
+        try {
+            await axios.delete(`/api/todo/delete/${id}`, { id }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(() => setTodos(todos.filter(el => el.id !== id)));
+        } catch (error) { console.log(error) };
+    }, [setTodos, todos]);
+
+    const editTodo = useCallback(async (text, id) => {
+        try {
+            await axios.put(`/api/todo/edit/${id}`, { text }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(() => {
+                setTodos(todos.map(el => {
+                    if (el.id === todo.id) {
+                        return {
+                            ...todo,
+                            text: text
+                        };
+                    }
+                    return el;
+                }));
+            })
+        } catch (error) { console.log(error) }
+    }, [todo, todos, setTodos]);
+
+    const completeTodo = useCallback(async (id) => {
+        try {
+            await axios.put(`/api/todo/complete/${id}`, { id }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(() => {
+                setTodos(todos.map((el) => {
+                    if (el.id === id) {
+                        if (el.completed) {
+                            showAddedTask();
+                            return {
+                                ...el, completed: false
+                            }
+                        } else {
+                            showCompletedTask();
+                            return {
+                                ...el, completed: true
+                            }
+                        }
+                    }
+                    return el;
+                }));
+            });
+        } catch (error) { console.log(error) };
+    }, [todos, setTodos, showAddedTask, showCompletedTask]);
 
     const readOnlyHandler = (evt) => {
         const target = evt.target;
@@ -34,16 +91,8 @@ const ToDo = (props) => {
     };
 
     const editHandler = (evt) => {
-        editTodo(evt.target.value, todo.id)
-        setTodos(todos.map(el => {
-            if (el.id === todo.id) {
-                return {
-                    ...todo,
-                    text: evt.target.value
-                };
-            }
-            return el;
-        }));
+        const currentText = evt.target.value
+        editTodo(currentText, todo.id)
     };
 
     const deleteHandler = (evt) => {
@@ -56,8 +105,7 @@ const ToDo = (props) => {
         <div onMouseMove={mouseEnterHandler} onMouseLeave={() => (setShow(false))} className={style.todo} >
             <input onClick={completeHandler} className={style.chk} type="checkbox" id="chk" checked={todo.completed} readOnly />
             <input onDoubleClick={() => setReadonly(false)} onChange={editHandler} readOnly={isReadonly}
-                className={style.formControl
-                    + `${todo.completed ? " " + style.completed : " "}`} value={text} type="text">
+                className={style.formControl + `${todo.completed ? " " + style.completed : " "}`} value={text} type="text">
             </input>
             {show && <button onClick={deleteHandler} className={style.trashBtn} />}
         </div>

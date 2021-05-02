@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import style from "./ToDoBtn.module.css";
+import axios from "axios";
 
 
 const Tasks = {
@@ -10,8 +11,18 @@ const Tasks = {
 
 const ToDoBtn = (props) => {
 
-    const { todos, setTodos, status, setStatus, showCleanList,
-        showAllTasks, showCompletedTasks, showActiveTasks} = props;
+    const { todos, setTodos, status, setStatus,
+        showCleanList, showAllTasks, showCompletedTasks, showActiveTasks } = props;
+
+    const removeTodoAll = useCallback(async () => {
+        try {
+            await axios.delete(`/api/todo/delete`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(() => { setTodos(todos.filter(todo => !todo.completed)) });
+        } catch (error) { console.log(error) };
+    }, [setTodos, todos]);
 
     const statusHandler = (evt) => {
         evt.preventDefault();
@@ -31,7 +42,7 @@ const ToDoBtn = (props) => {
     const clearHandler = (evt) => {
         evt.preventDefault();
         showCleanList();
-        setTodos(todos.filter(todo => !todo.completed));
+        removeTodoAll();
     };
 
     const activeTodos = todos.filter(todo => !todo.completed);

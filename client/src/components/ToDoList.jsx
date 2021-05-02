@@ -5,14 +5,14 @@ import style from "./ToDoList.module.css";
 
 const ToDoList = (props) => {
 
-    const { todos, setTodos, filteredTodos, removeTodo, completeTodo,
-        showCompletedTask, showAddedTask, showDeletedTask, editTodo } = props;
+    const { todos, setTodos, filteredTodos,
+        showCompletedTask, showAddedTask, showDeletedTask, } = props;
 
     return (
         <div>
             <ul className={style.todoList}>
                 {filteredTodos.map((todo) => (
-                    <ToDo todo={todo} removeTodo={removeTodo} completeTodo={completeTodo} editTodo={editTodo}
+                    <ToDo todo={todo}
                         todos={todos}
                         setTodos={setTodos}
                         text={todo.text}
