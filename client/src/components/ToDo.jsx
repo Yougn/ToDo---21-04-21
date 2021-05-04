@@ -8,6 +8,7 @@ const ToDo = (props) => {
     const { text, todo, todos, setTodos, showDeletedTask, showAddedTask, showCompletedTask } = props;
     const [show, setShow] = useState(false);
     const [isReadonly, setReadonly] = useState(true);
+    const [currentText, setCurrentText] = useState("");
 
     useEffect(() => {
         document.addEventListener("click", readOnlyHandler);
@@ -91,8 +92,8 @@ const ToDo = (props) => {
     };
 
     const editHandler = (evt) => {
-        const currentText = evt.target.value
-        editTodo(currentText, todo.id)
+        const newText = evt.target.value;
+        setCurrentText(newText);
     };
 
     const deleteHandler = (evt) => {
@@ -102,10 +103,11 @@ const ToDo = (props) => {
     };
 
     return (
-        <div onMouseMove={mouseEnterHandler} onMouseLeave={() => (setShow(false))} className={style.todo} >
+        <div onMouseMove={mouseEnterHandler} onMouseLeave={() => (setShow(false))} className={style.todo} onBlur={() => { editTodo(currentText, todo.id) }} >
             <input onClick={completeHandler} className={style.chk} type="checkbox" id="chk" checked={todo.completed} readOnly />
             <input onDoubleClick={() => setReadonly(false)} onChange={editHandler} readOnly={isReadonly}
-                className={style.formControl + `${todo.completed ? " " + style.completed : " "}`} value={text} type="text">
+                className={style.formControl + `${todo.completed ? " " + style.completed : " "}`}
+                value={currentText ? currentText : text} type="text">
             </input>
             {show && <button onClick={deleteHandler} className={style.trashBtn} />}
         </div>
